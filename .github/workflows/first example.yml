@@ -13,8 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List files
-        run: ls
+      - name: Welcome to my github
+        uses: |
+            ls -lrt
+            cat README.md
 
-      - name: Read file
-        run: cat README.md
+      #- name: List files
+        #run: ls
+
+      #- name: Read file
+        #run: cat README.md
