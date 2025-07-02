@@ -3,19 +3,28 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to main branch
+      - main  # Trigger deployment on push to the main branch
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Running the job on Ubuntu
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Prepare the App (if necessary, create a public directory)
+      - name: Prepare App Directory
+        run: |
+          mkdir -p public
+          mv App.html public/
+
+      # Step 3: Deploy to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: azweb  # Replace with your Azure Web App name
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure Web App publish profile stored as secret
-          package: .  # Deploy everything in the root of the repository (which includes your App.html)
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Secrets to authenticate
+          package: ./public  # Deploying the public directory with App.html inside
+
