@@ -19,4 +19,3 @@ jobs:
           app-name: azweb  # Replace with your Azure Web App name
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure Web App publish profile stored as secret
           package: .  # Deploy everything in the root of the repository (which includes your App.html)
-
